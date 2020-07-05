@@ -12,10 +12,12 @@ public class Unit : MonoBehaviour
 
     public int attack;
 
-    internal void TakeDamage(int damage)
+    internal int TakeDamage(int damage)
     {
+        int originalHP = currentHP;
         currentHP -= damage;
         if (currentHP < 0) currentHP = 0;
+        return originalHP - currentHP;
     }
 
     public bool IsDead()

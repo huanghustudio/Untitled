@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Red
+  - Green
+  - Blue
+  - Target
   layers:
   - Default
   - TransparentFX
@@ -13,8 +17,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - GameContent
+  - Background
   - 
   - 
   - 
@@ -38,8 +42,14 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 1630129287
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: GameContent
+    uniqueID: 2134129223
     locked: 0
   - name: UI
     uniqueID: 3316478867

@@ -20,6 +20,7 @@ public class BattleManager : MonoBehaviour
 
     public Text dialogueText;
     public BattleHUD playerBattleHUD, enemyBattleHUD;
+    public PaceManager paceManager;
 
     // Start is called before the first frame update
     IEnumerator Start()
@@ -104,11 +105,17 @@ public class BattleManager : MonoBehaviour
         dialogueText.text = "Choose an action: ";
     }
 
-    IEnumerator PlayerAttack()
+    void PlayerAttack()
     {
-        enemyUnit.TakeDamage(playerUnit.attack);
+        StartCoroutine(paceManager.Play());
+    }
+
+    public IEnumerator PlayCallBack(float damageBuff)
+    {
+        int damage = (int)(playerUnit.attack * damageBuff);
+        int actualDamage = enemyUnit.TakeDamage(damage);
         enemyBattleHUD.UpdateHP(enemyUnit.currentHP);
-        dialogueText.text = "The attack is successful!";
+        dialogueText.text = "The attack is successful: " + actualDamage;
 
         yield return new WaitForSeconds(2f);
         EndOneTurn();
@@ -119,7 +126,7 @@ public class BattleManager : MonoBehaviour
         if (inputState != InputState.WAIT || battleState != BattleState.PLAYERTURN)
             return;
         inputState = InputState.STALL;
-        StartCoroutine(PlayerAttack());
+        PlayerAttack();
     }
 
     IEnumerator RunEnemyTurn()
